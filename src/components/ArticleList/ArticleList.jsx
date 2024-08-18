@@ -1,10 +1,11 @@
+//src\components\ArticleList\ArticleList.jsx
 function ArticlesList({ items }) {
   return (
     <ul>
-      {items.map(item => (
-        <li key={item.id}>
-          <h2>{item.title}</h2>
-          <p>{item.body}</p>
+      {items.map(user => (
+        <li key={user.id}>
+          <h2>{user.name}</h2>
+          <p>{user.createAt}</p>
         </li>
       ))}
     </ul>
