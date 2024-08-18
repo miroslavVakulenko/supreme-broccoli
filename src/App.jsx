@@ -15,6 +15,7 @@ const App = () => {
       try {
         setLoading(true);
         const data = await fetchArticlesTopic('Larry Beahan');
+        //fake search
         setUsers(data);
       } catch (error) {
         setError(true);
