@@ -10,6 +10,8 @@ const App = () => {
   const [error, setError] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   useEffect(() => {
+    setUsers([]);
+    setError(false);
     async function fetchArticles() {
       try {
         if (searchValue === '') {
@@ -39,7 +41,7 @@ const App = () => {
     <div>
       <h1>Latest articles</h1>
       <SearchForm onSearch={handleSearch} />
-      {loading && <Loader/>}
+      {loading && <Loader />}
       {error && <p>Wooops!</p>}
       {users.length > 0 && <ArticleList items={users} />}
     </div>
