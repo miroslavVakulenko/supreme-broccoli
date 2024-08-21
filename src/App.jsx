@@ -8,21 +8,16 @@ const App = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [searchValue, setSearchValue] = useState('');
+  const [page, setPage] = useState(1);
+  const [query, setQuery] = useState('');
   useEffect(() => {
     setUsers([]);
     setError(false);
     async function fetchArticles() {
       try {
-        if (searchValue === '') {
-          setLoading(true);
-          const data = await fetchArticlesTopic();
-          setUsers(data);
-        } else {
-          setLoading(true);
-          const data = await fetchArticlesTopic(searchValue);
-          setUsers(data);
-        }
+        setLoading(true);
+        const data = await fetchArticlesTopic(query, page);
+        setUsers(data);
       } catch (error) {
         setError(true);
         console.log(error);
@@ -32,10 +27,16 @@ const App = () => {
     }
 
     fetchArticles();
-  }, [searchValue]);
+  }, [page, query]);
 
-  const handleSearch = topic => {
-    setSearchValue(topic);
+  const handleSearch = async query => {
+    setQuery(query);
+    setPage(1);
+  };
+
+  const handleLoadMore = () => {
+    setPage(page + 1);
+    console.log(page);
   };
   return (
     <div>
@@ -44,6 +45,7 @@ const App = () => {
       {loading && <Loader />}
       {error && <p>Wooops!</p>}
       {users.length > 0 && <ArticleList items={users} />}
+      {users.length > 0 && <button onClick={handleLoadMore}>Load more</button>}
     </div>
   );
 };
