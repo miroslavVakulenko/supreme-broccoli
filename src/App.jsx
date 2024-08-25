@@ -8,16 +8,36 @@ const App = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState('');
+
+  const handleSearch = query => {
+    setQuery(query);
+    setPage(1);
+    setUsers([]); //while submit we need reset list of items for new list with new query
+  };
+
+  const handleLoadMore = () => {
+    setPage(page + 1);
+    console.log(page);
+  };
+
   useEffect(() => {
-    setUsers([]);
-    setError(false);
-    async function fetchArticles() {
+    if (query === '') {
+      return;
+    }
+
+    async function getArticles() {
       try {
+        setError(false);
         setLoading(true);
         const data = await fetchArticlesTopic(query, page);
-        setUsers(data);
+        setUsers(prevUsers => {
+          console.log(prevUsers);
+          return [...prevUsers, ...data];
+          // return data; //if we need pages for list
+        });
       } catch (error) {
         setError(true);
         console.log(error);
@@ -26,26 +46,25 @@ const App = () => {
       }
     }
 
-    fetchArticles();
+    getArticles();
   }, [page, query]);
 
-  const handleSearch = async query => {
-    setQuery(query);
-    setPage(1);
-  };
-
-  const handleLoadMore = () => {
-    setPage(page + 1);
-    console.log(page);
-  };
   return (
     <div>
       <h1>Latest articles</h1>
       <SearchForm onSearch={handleSearch} />
-      {loading && <Loader />}
       {error && <p>Wooops!</p>}
       {users.length > 0 && <ArticleList items={users} />}
-      {users.length > 0 && <button onClick={handleLoadMore}>Load more</button>}
+      {loading && (
+        <p>
+          Please wait <Loader />
+        </p>
+      )}
+      {users.length > 0 && !loading && (
+        <button onClick={handleLoadMore}>Load more</button>
+      )}
+      {/*if we need pages for list uncomment return data in await fetchArticlesTopic*/}
+      {/* {<p>page:{page}</p>} */}
     </div>
   );
 };

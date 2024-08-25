@@ -32,7 +32,7 @@ const SearchForm = ({ onSearch }) => {
       }}
     >
       <Form>
-        <Field type="text" name="query" placeholder="Sercch" />
+        <Field type="text" name="query" placeholder="Serch" />
         <ErrorMessage name="query" componrnt="div" />
         <button type="submit">Search</button>
       </Form>

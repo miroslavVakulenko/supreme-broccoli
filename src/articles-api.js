@@ -8,7 +8,7 @@ const fetchArticlesTopic = async (query, page) => {
     params: {
       name: query,
       page,
-      limit: 2,
+      limit: 4,
     },
     headers: {
       'Content-Type': 'application/json',
