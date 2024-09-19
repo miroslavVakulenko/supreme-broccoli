@@ -1,5 +1,5 @@
 // // src/components/SearchForm.jsx
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { Field, Form, Formik } from 'formik';
 // const SearchForm = ({ onSearch }) => {
 //   const handleSubmit = evt => {
 //     evt.preventDefault();
@@ -33,7 +33,6 @@ const SearchForm = ({ onSearch }) => {
     >
       <Form>
         <Field type="text" name="query" placeholder="Serch" />
-        <ErrorMessage name="query" componrnt="div" />
         <button type="submit">Search</button>
       </Form>
     </Formik>

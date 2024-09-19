@@ -15,7 +15,7 @@ const App = () => {
   const handleSearch = query => {
     setQuery(query);
     setPage(1);
-    setUsers([]); //while submit we need reset list of items for new list with new query
+    setUsers([]);
   };
 
   const handleLoadMore = () => {
@@ -36,7 +36,6 @@ const App = () => {
         setUsers(prevUsers => {
           console.log(prevUsers);
           return [...prevUsers, ...data];
-          // return data; //if we need pages for list
         });
       } catch (error) {
         setError(true);

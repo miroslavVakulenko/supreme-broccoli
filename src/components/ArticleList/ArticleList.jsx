@@ -1,5 +1,5 @@
 //src\components\ArticleList\ArticleList.jsx
-function ArticlesList({ items }) {
+function ArticlesList(items) {
   return (
     <ul>
       {items.map(user => (
